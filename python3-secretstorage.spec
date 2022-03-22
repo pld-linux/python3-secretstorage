@@ -6,26 +6,26 @@
 Summary:	Python 3 bindings to Freedesktop.org Secret Service API
 Summary(pl.UTF-8):	Wiązania Pythona 3 do API Secret Service z Freedesktop.org
 Name:		python3-secretstorage
-Version:	3.1.2
+Version:	3.3.1
 Release:	1
 License:	BSD
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/secretstorage/
 Source0:	https://files.pythonhosted.org/packages/source/S/SecretStorage/SecretStorage-%{version}.tar.gz
-# Source0-md5:	c2a8c0e08e5da198fc38c379b98c28f1
+# Source0-md5:	23563c1d167c51e3d9483479cd7caccd
 URL:		https://github.com/mitya57/secretstorage
-BuildRequires:	python3-modules >= 1:3.5
-BuildRequires:	python3-setuptools
+BuildRequires:	python3-modules >= 1:3.6
+BuildRequires:	python3-setuptools >= 1:30.3
 %if %{with doc}
 BuildRequires:	python3-Sphinx
 %endif
 %if %{with tests}
-BuildRequires:	python3-cryptography
-BuildRequires:	python3-jeepney >= 0.4.2
+BuildRequires:	python3-cryptography >= 2.0
+BuildRequires:	python3-jeepney >= 0.6
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
-Requires:	python3-modules >= 1:3.5
+Requires:	python3-modules >= 1:3.6
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
