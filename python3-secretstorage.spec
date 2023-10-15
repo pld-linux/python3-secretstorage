@@ -1,18 +1,18 @@
 #
 # Conditional build:
 %bcond_without	doc	# Sphinx documentation
-%bcond_with	tests	# unit tests [require dbus and some Secret Service daemon running]
+%bcond_with	tests	# unit tests (require dbus stub or some Secret Service daemon running, e.g. GNOME Keyring)
 
 Summary:	Python 3 bindings to Freedesktop.org Secret Service API
 Summary(pl.UTF-8):	Wiązania Pythona 3 do API Secret Service z Freedesktop.org
 Name:		python3-secretstorage
-Version:	3.3.1
-Release:	3
+Version:	3.3.3
+Release:	1
 License:	BSD
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/secretstorage/
 Source0:	https://files.pythonhosted.org/packages/source/S/SecretStorage/SecretStorage-%{version}.tar.gz
-# Source0-md5:	23563c1d167c51e3d9483479cd7caccd
+# Source0-md5:	c6ff1cc866d2f1d274b75c6490726b1b
 URL:		https://github.com/mitya57/secretstorage
 BuildRequires:	python3-modules >= 1:3.6
 BuildRequires:	python3-setuptools >= 1:30.3
@@ -20,6 +20,7 @@ BuildRequires:	python3-setuptools >= 1:30.3
 BuildRequires:	python3-Sphinx
 %endif
 %if %{with tests}
+BuildRequires:	dbus
 BuildRequires:	python3-cryptography >= 2.0
 BuildRequires:	python3-jeepney >= 0.6
 %endif
@@ -61,9 +62,7 @@ Dokumentacja API secretstorage.
 %py3_build %{?with_doc:build_sphinx}
 
 %if %{with tests}
-# TODO: proper value
-export DBUS_SESSION_BUS_ADDRESS=???
-%{__python3} tests/run_tests.py
+dbus-run-session -- %{__python3} -m unittest discover -s tests
 %endif
 
 %install
